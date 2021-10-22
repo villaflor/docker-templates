@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: ./
+      dockerfile: docker/Dockerfile
+    container_name: my-app
+    restart: always
+    working_dir: /var/www/html
+    volumes:
+      - ../../laravel8:/var/www/html
+  nginx:
+    image: nginx:1.21-alpine
+    container_name: my-nginx
+    restart: always
+    ports:
+      - 8080:80
+    volumes:
+      - ../../laravel8:/var/www/html
+      - ./docker/nginx:/etc/nginx/conf.d
